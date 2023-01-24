@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>DbTest</RootNamespace>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<DefineConstants>$(DefineConstants);FORMS</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<Compile Include="**\*.shared.cs;**\*.logic.cs;**\*.forms.cs" />
+		<None Include="**\*.maui.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<Compile Include="**\*.shared.cs;**\*.logic.cs;**\*.maui.cs" />
+		<None Include="**\*.forms.cs" />
+	</ItemGroup>
+
+	<!-- Xamarin.Forms NuGet packages -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.7.3" />		
+	</ItemGroup>
+
+	<!-- .NET MAUI NuGet packages -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Include="PerformanceTest.cs" />
+	</ItemGroup>
+
+	<!-- Common NuGet packages -->
+	<ItemGroup>		
+		<PackageReference Include="LiteDB" Version="5.0.15" />
+		<PackageReference Include="sqlite-net-sqlcipher" Version="1.8.116" />
+		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
+	</ItemGroup>
+
+</Project>

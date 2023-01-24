@@ -1,0 +1,1 @@
+Database LiteDb/SqLite performance comparsion between MAUI and Xamarin projects
